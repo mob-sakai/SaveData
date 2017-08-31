@@ -8,7 +8,7 @@ Manage player's data in runtime and in editor.
 * Supports mobile device
 * Multiple datas in a device
 * Available in runtime, also in editor
-* SaveData viewer in editor.
+* SaveData viewer in editor.  
 ![image](https://user-images.githubusercontent.com/12690315/29917139-fda7bf3e-8e7b-11e7-8eca-4ab197ba0959.png)
 
 
@@ -22,7 +22,7 @@ Manage player's data in runtime and in editor.
 
 ## Usage
 
-1. Download [SaveData.unitypackage](https://github.com/mob-sakai/SaveData/raw/master/SaveData.unitypackage) and install to your project.
+1. Download [SaveData.unitypackage](../master/SaveData.unitypackage) and install to your project.
 1. Enjoy!
 
 Use `YourSaveData` from code as follows.
