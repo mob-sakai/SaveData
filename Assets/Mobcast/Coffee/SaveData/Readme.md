@@ -22,11 +22,12 @@ Manage player's data in runtime and in editor.
 
 ## Usage
 
-1. Download [SaveData.unitypackage](../master/SaveData.unitypackage) and install to your project.
+1. Download [SaveData.unitypackage](https://github.com/mob-sakai/SaveData/master/SaveData.unitypackage) and install to your project.
 1. Enjoy!
 
 Use `YourSaveData` from code as follows.
-```cs
+
+```csharp
 // Initialize and desplay current data.
 // current data is loaded automatically.
 YourSaveData.Initialize();
