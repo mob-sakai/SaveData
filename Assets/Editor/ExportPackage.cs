@@ -4,7 +4,7 @@ namespace Mobcast.Coffee
 {
 	public static class ExportPackage
 	{
-		const string kPackageName = "UITransition.unitypackage";
+		const string kPackageName = "SaveData.unitypackage";
 		static readonly string[] kAssetPathes = {
 			"Assets/Mobcast/Coffee/SaveData",
 		};

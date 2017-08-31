@@ -47,8 +47,36 @@ Debug.LogFormat("Current: {0}, {1}", YourSaveData.current.uniqueId, YourSaveData
 ```
 
 
+
+## Multiple Environment?
+
+In game development, not only **Production** environment but also **Development** environment is necessary.  
+Database, API server, executable binary, file server, application ID, provisioning profile ... and *save data*.  
+For example, like this.
+
+* Development environment: data "Tommy" is exist in DB.
+* Production environment: data "John" is exist in DB.
+
+Probably, accessing the production environment with data "Tommy" will fail.  
+There is no data　"Tommy" in the production environment.  
+
+The SaveData class has a `path` property which indicates the save data save path.  
+By using `path`, save data can be created for each environment.
+```csharp
+#if DEVELOP
+const string PATH = "YourSaveDataPath_develop";
+#else
+const string PATH = "YourSaveDataPath";
+#endif
+
+public override string path { get { return PATH; } }
+```
+
+
 ## Demo
 
+You can have multiple data on one device!  
+![image](https://user-images.githubusercontent.com/12690315/29918678-3ba4b422-8e81-11e7-917e-e7c3c993f437.png)  
 [WebGL Demo](https://developer.cloud.unity3d.com/share/W1fv8sYS9f/)
 
 
