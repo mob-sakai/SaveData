@@ -8,6 +8,8 @@ Manage player's data in runtime and in editor.
 * Supports mobile device
 * Multiple datas in a device
 * Available in runtime, also in editor
+* SaveData viewer in editor.
+![image](https://user-images.githubusercontent.com/12690315/29917139-fda7bf3e-8e7b-11e7-8eca-4ab197ba0959.png)
 
 
 
@@ -23,6 +25,25 @@ Manage player's data in runtime and in editor.
 1. Download [SaveData.unitypackage](https://github.com/mob-sakai/SaveData/raw/master/SaveData.unitypackage) and install to your project.
 1. Enjoy!
 
+Use `YourSaveData` from code as follows.
+```cs
+// Initialize and desplay current data.
+// current data is loaded automatically.
+YourSaveData.Initialize();
+Debug.LogFormat("Current: {0}, {1}", YourSaveData.current.uniqueId, YourSaveData.current.sampleValue);
+
+// Create new data.
+YourSaveData.CreateEntity( "<uniqueId>" );
+YourSaveData.current.sampleValue = 100;
+
+// Change value and save.
+YourSaveData.current.sampleValue = 200;
+YourSaveData.SaveEntity();
+
+// Load other data with id.
+YourSaveData.LoadEntity( "<otherId>" );
+Debug.LogFormat("Current: {0}, {1}", YourSaveData.current.uniqueId, YourSaveData.current.sampleValue);
+```
 
 
 ## Demo
