@@ -10,8 +10,8 @@ public class ClickGame_Demo : MonoBehaviour
 	[SerializeField]Text score;
 
 	[SerializeField]ScrollRect scroll;
-	[SerializeField]EntityView_Demo entityView;
-	List<EntityView_Demo> views = new List<EntityView_Demo>();
+	[SerializeField]SaveDataEntityView_Demo entityView;
+	List<SaveDataEntityView_Demo> views = new List<SaveDataEntityView_Demo>();
 
 	// Use this for initialization
 	void Start()
@@ -30,7 +30,7 @@ public class ClickGame_Demo : MonoBehaviour
 		Debug.Log(inputName);
 		Debug.Log(entity);
 
-		inputName.text = entity.m_Key ?? "";
+		inputName.text = entity.m_UniqueId ?? "";
 		score.text = entity.m_Score.ToString();
 		Debug.Log("Current SaveData has been changed: " + JsonUtility.ToJson(entity));
 	}
@@ -41,7 +41,7 @@ public class ClickGame_Demo : MonoBehaviour
 		views.Clear();
 		entities.ForEach(x =>
 			{
-				var newView = Object.Instantiate<EntityView_Demo>(entityView);
+				var newView = Object.Instantiate<SaveDataEntityView_Demo>(entityView);
 				newView.transform.SetParent(scroll.content);
 				newView.transform.localScale = Vector3.one;
 				newView.SetEntity(x);
@@ -60,7 +60,7 @@ public class ClickGame_Demo : MonoBehaviour
 
 	public void OnChange_Name(string name)
 	{
-		SaveData_Demo.current.m_Key = name;
+		SaveData_Demo.current.m_UniqueId = name;
 	}
 
 	public void OnClick_Save()

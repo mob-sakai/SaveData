@@ -191,9 +191,8 @@ namespace Mobcast.Coffee.SaveData
 							if (GUILayout.Button(new GUIContent(" Load", EditorGUIUtility.FindTexture("d_treeeditor.refresh")), GUILayout.Height(21)))
 							{
 								GUIUtility.keyboardControl = 0;
-								var key = spElement.FindPropertyRelative("m_Key").stringValue;
-								miLoadEntity.Invoke(null, new object[]{ key });
-								//							ScriptableSaveData<T, T2>.LoadEntity(spElement.FindPropertyRelative("m_Key").stringValue);
+								var uniqueId = spElement.FindPropertyRelative("m_UniqueId").stringValue;
+								miLoadEntity.Invoke(null, new object[]{ uniqueId });
 							}
 
 							//削除ボタン.

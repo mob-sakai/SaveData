@@ -6,18 +6,20 @@ using System;
 namespace Mobcast.Coffee.SaveData
 {
 	/// <summary>
-	/// ローカルデータエンティティの基底クラス
-	/// これを継承してローカルデータに保存したいクラスを作成する
+	/// セーブデータエンティティの基底クラス.
+	/// これを継承してセーブデータに保存したい項目を追加してください.
+	/// メニューより「Coffee > Save Data Editor」を選択すると、新しいセーブデータクラスをテンプレートから生成します.
 	/// </summary>
 	public abstract class SaveDataEntity
 	{
 		[SerializeField]
-		public string m_Key;
+		public string m_UniqueId;
 	}
 
 	/// <summary>
-	/// ローカルデータの基底クラス
-	/// これを継承してローカルデータに保存したいクラスを作成する
+	/// セーブデータの基底クラス.
+	/// これを継承してセーブデータクラスを作成してください.
+	/// 実装先でセーブデータのパスや保存方法、暗号化の有無などをカスタマイズできます.
 	/// </summary>
 	[System.Serializable]
 	public abstract class SaveData<T, T2> : ScriptableObject where T : SaveDataEntity where T2 : SaveData<T, T2>
@@ -39,7 +41,7 @@ namespace Mobcast.Coffee.SaveData
 		/// </summary>
 		public static List<T> list { get { return instance.m_List; } }
 
-		[SerializeField] List<T> m_List;
+		[SerializeField] List<T> m_List = new List<T>();
 
 		/// <summary>
 		/// セーブデータ保存パス.
@@ -71,12 +73,47 @@ namespace Mobcast.Coffee.SaveData
 			Restore();
 		}
 
+
+		/// <summary>
+		/// 指定したセーブデータエンティティを入力します.
+		/// </summary>
+		public static void ImportEntity(string json)
+		{
+			if (string.IsNullOrEmpty(json))
+				return;
+			
+			var data = JsonUtility.FromJson<T>(json);
+
+			var id = list.FindIndex(x => x.m_UniqueId == data.m_UniqueId);
+			if (id < 0)
+			{
+				list.Add(data);
+			}
+			else
+			{
+				list.RemoveAt(id);
+				list.Insert(id, data);
+			}
+		}
+
+		/// <summary>
+		/// 指定したセーブデータエンティティを出力します.
+		/// </summary>
+		public static string ExportEntity(string uniqueId)
+		{
+			var data = list.Find(x => x.m_UniqueId == uniqueId);
+			if (data == null)
+				return null;
+
+			return JsonUtility.ToJson(data, true);
+		}
+
 		/// <summary>
 		/// 現在のセーブデータエンティティを、ストレージへ書き込みます.
 		/// </summary>
 		public static void SaveEntity()
 		{
-			list.RemoveAll(x => x.m_Key == current.m_Key);
+			list.RemoveAll(x => x.m_UniqueId == current.m_UniqueId);
 			list.Insert(0, JsonUtility.FromJson<T>(JsonUtility.ToJson(current)));
 			Store();
 
@@ -85,14 +122,14 @@ namespace Mobcast.Coffee.SaveData
 		}
 
 		/// <summary>
-		/// 指定したキーのセーブデータエンティティを、ストレージから読み込みます.
+		/// 指定したユニークIDのセーブデータエンティティを、ストレージから読み込みます.
 		/// </summary>
-		public static void LoadEntity(string key)
+		public static void LoadEntity(string uniqueId)
 		{
-			key = (key == null) ? current.m_Key : key;
-			var data = list.Find(x => x.m_Key == key);
+			uniqueId = uniqueId ?? current.m_UniqueId;
+			var data = list.Find(x => x.m_UniqueId == uniqueId);
 			current = (data != null) ? JsonUtility.FromJson<T>(JsonUtility.ToJson(data)) : JsonUtility.FromJson<T>("{}");
-			current.m_Key = key;
+			current.m_UniqueId = uniqueId;
 
 			if (onCurrentChanged != null)
 				onCurrentChanged(current);
@@ -110,11 +147,11 @@ namespace Mobcast.Coffee.SaveData
 		}
 
 		/// <summary>
-		/// 指定したキーのセーブデータエンティティを、ストレージから削除します.
+		/// 指定したユニークIDのセーブデータエンティティを、ストレージから削除します.
 		/// </summary>
-		public static void DeleteStoredEntity(string key = "")
+		public static void DeleteStoredEntity(string uniqueId = "")
 		{
-			list.RemoveAll(x => x.m_Key == key);
+			list.RemoveAll(x => x.m_UniqueId == uniqueId);
 			Store();
 		}
 

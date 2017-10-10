@@ -6,7 +6,7 @@ Manage player's data in runtime and in editor.
 * Create, Save, Load, Delete data
 * Store Unity supported serialized fields to PlayerPrefs or local file
 * Supports mobile device
-* Multiple datas in a device
+* Multiple save datas in a device
 * Available in runtime, also in editor
 * SaveData viewer in editor.  
 ![image](https://user-images.githubusercontent.com/12690315/29917139-fda7bf3e-8e7b-11e7-8eca-4ab197ba0959.png)
@@ -23,6 +23,7 @@ Manage player's data in runtime and in editor.
 ## Usage
 
 1. Download [SaveData.unitypackage](https://github.com/mob-sakai/SaveData/master/SaveData.unitypackage) and install to your project.
+1. 
 1. Enjoy!
 
 Use `YourSaveData` from code as follows.
@@ -75,7 +76,7 @@ public override string path { get { return PATH; } }
 
 ## Demo
 
-You can have multiple data on one device!  
+You can have multiple save datas in a device!  
 ![image](https://user-images.githubusercontent.com/12690315/29918678-3ba4b422-8e81-11e7-917e-e7c3c993f437.png)  
 [WebGL Demo](https://developer.cloud.unity3d.com/share/W1fv8sYS9f/)
 
@@ -83,10 +84,15 @@ You can have multiple data on one device!
 
 ## Release Notes
 
+### ver.0.2.0
+
+* Export and Import
+* Encrypt and Decrypt
+
 ### ver.0.1.0
 
 * Create, Save, Load, Delete data
-* Multiple datas in a device
+* Multiple save datas in a device
 * Create custom SaveData script with template
 * SaveData viewer in editor.
 * Add demo
